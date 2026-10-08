@@ -1,0 +1,9 @@
+rail_or_subsystem,voltage_V,peak_current_A,peak_power_W,idle_power_W,source_document_revision,confidence,notes
+SoC,,,,,,UNKNOWN,Await exact SoC and validated power data
+DDR,,,,,,UNKNOWN,Await memory topology
+eMMC,,,,,,UNKNOWN,Await component selection
+Ethernet PHY,,,,,,UNKNOWN,Await PHY selection
+Management MCU,,,,,,UNKNOWN,Always-on domain
+PMIC conversion loss,,,,,,UNKNOWN,Estimate only after efficiency curves
+Input protection loss,,,,,,UNKNOWN,Review thermal dissipation
+Total board,,,,,,UNKNOWN,Do not sum until sources and simultaneous load assumptions verified
