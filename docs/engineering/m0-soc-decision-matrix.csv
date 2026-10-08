@@ -1,0 +1,8 @@
+sku,candidate_family,exact_orderable_part_number,authorized_source_url,source_checked_date,quote_currency,price_qty_10,price_qty_100,price_qty_1000,MOQ,lead_time_weeks,public_docs_url,ddr_layout_guide_status,linux_boot_source_url,firmware_redistribution_status,ethernet_topology,pcie_topology,thermal_power_evidence,hard_gate_status,score,reviewer,notes
+Nano,Allwinner H618,,,,,,,,,,,,,,,,,HOLD,,,"Discovery hypothesis only"
+Nano,Rockchip RK3566,,,,,,,,,,,,,,,,,HOLD,,,"Discovery hypothesis only"
+Compute,Rockchip RK3568,,,,,,,,,,,,,,,,,HOLD,,,"Discovery hypothesis only"
+Compute,Rockchip RK3588S,,,,,,,,,,,,,,,,,HOLD,,,"Discovery hypothesis only"
+Compute,NXP i.MX 8M Plus,,,,,,,,,,,,,,,,,HOLD,,,"Discovery hypothesis only"
+Pro,Rockchip RK3588,,,,,,,,,,,,,,,,,HOLD,,,"Discovery hypothesis only"
+Pro,NXP i.MX 95,,,,,,,,,,,,,,,,,HOLD,,,"Discovery hypothesis only"
