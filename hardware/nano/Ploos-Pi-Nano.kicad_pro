@@ -1,0 +1,13 @@
+{
+  "meta": {
+    "filename": "Ploos-Pi-Nano.kicad_pro",
+    "version": 1
+  },
+  "board": {},
+  "schematic": {},
+  "text_variables": {
+    "PROJECT": "Ploos Pi Nano",
+    "STATUS": "EXPLORATORY - NOT FOR FABRICATION",
+    "REV": "M0.9"
+  }
+}
