@@ -1,0 +1,13 @@
+(kicad_sch (version 20250114) (generator "eeschema")
+  (uuid "c8353ca7-40b5-4cda-941c-c7bd7e725f5e")
+  (paper "A4")
+  (title_block
+    (title "Ploos Pi Nano — exploratory root")
+    (date "2026-10-09")
+    (rev "M0.8")
+    (comment 1 "UNVALIDATED: no components, no wiring, not for fabrication"))
+  (lib_symbols)
+  (sheet_instances
+    (path "/" (page "1")))
+  (embedded_fonts no)
+)
