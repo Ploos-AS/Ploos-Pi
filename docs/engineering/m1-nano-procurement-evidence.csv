@@ -1,0 +1,4 @@
+candidate,exact_order_code,manufacturer_url,full_pinout_access,ddr_guide_access,power_guide_access,boot_source_access,authorized_supplier,quote_date,quantity,unit_price,currency,moq,lead_time_weeks,firmware_license_review,assembly_review,gate_status,notes
+TI AM6254,AM6254ATCGGAALW,https://www.ti.com/product/AM625/part-details/AM6254ATCGGAALW,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,,,,,,,,,HOLD,Manufacturer part page exists; no quote recorded
+Rockchip RK3566,UNKNOWN,https://www.rock-chips.com/a/en/products/RK35_Series/2021/0113/1274.html,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,,,,,,,,,HOLD,Exact order code and authorized documentation pending
+Allwinner H618,UNKNOWN,https://www.allwinnertech.com/index.php?a=index&c=product&id=89,UNKNOWN,UNKNOWN,UNKNOWN,UNKNOWN,,,,,,,,,HOLD,Exact order code and authorized documentation pending
