@@ -1,0 +1,13 @@
+id,initial_state,event,precondition,expected_state,expected_main_power,expected_result
+SM-001,OFF,power_on,authorized,POWERING_ON,ON,accepted
+SM-002,POWERING_ON,power_on,authorized,POWERING_ON,ON,idempotent
+SM-003,POWERING_ON,pgood_timeout,none,FAULT_LOCKOUT,OFF,fault_recorded
+SM-004,RUNNING,power_off,authorized,POWERING_OFF,ON,graceful_shutdown_requested
+SM-005,POWERING_OFF,shutdown_complete,none,OFF,OFF,completed
+SM-006,RUNNING,watchdog_timeout,within_retry_limit,CYCLING,OFF,cycle_count_incremented
+SM-007,RUNNING,rail_fault,none,FAULT_LOCKOUT,OFF,lockout_latched
+SM-008,FAULT_LOCKOUT,clear_fault,unauthorized,FAULT_LOCKOUT,OFF,rejected
+SM-009,FAULT_LOCKOUT,clear_fault,authorized_and_fault_clear,OFF,OFF,accepted
+SM-010,OFF,recovery,authorized,RECOVERY,OFF,recovery_straps_selected
+SM-011,RUNNING,recovery,unauthorized,RUNNING,ON,rejected
+SM-012,CYCLING,min_off_elapsed,cycle_limit_exceeded,FAULT_LOCKOUT,OFF,rate_limited
