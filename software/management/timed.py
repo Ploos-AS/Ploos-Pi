@@ -44,7 +44,7 @@ class TimedController:
             self.pgood_since_ms = None
             return self.core.state
         previous = self.core.state
-        if event == "power_on" and previous == State.OFF:
+        if event == "power_on" and previous == State.OFF and authorized:
             self.retry_times.clear()
             self.core.cycles = 0
         if event == "power_cycle" and previous == State.RUNNING and authorized:
