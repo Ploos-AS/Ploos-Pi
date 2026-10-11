@@ -42,6 +42,10 @@ class TimedController:
             return self.core.state
         if event == "pgood_low":
             self.pgood_since_ms = None
+            if self.core.state == State.RUNNING:
+                previous = self.core.state
+                self.core.event("rail_fault")
+                self._after_transition(previous)
             return self.core.state
         previous = self.core.state
         if event == "power_on" and previous == State.OFF and authorized:
@@ -75,7 +79,33 @@ class TimedController:
     def advance(self, milliseconds: int):
         if milliseconds < 0:
             raise ValueError("time cannot move backwards")
-        self.now_ms += milliseconds
+        target_ms = self.now_ms + milliseconds
+        # Resolve transitions at their actual deadlines, not at the end of a large jump.
+        while self.now_ms < target_ms:
+            state = self.core.state
+            deadlines = []
+            if state == State.POWERING_ON:
+                if self.pgood_since_ms is None:
+                    deadlines.append(self.entered_ms + self.config.pgood_timeout_ms)
+                else:
+                    deadlines.append(self.entered_ms + self.config.boot_grace_ms)
+            elif state == State.POWERING_OFF:
+                deadlines.append(self.entered_ms + self.config.shutdown_grace_ms)
+            elif state == State.CYCLING:
+                deadlines.append(self.entered_ms + self.config.min_off_ms)
+            elif state == State.RUNNING and self.last_heartbeat_ms is not None:
+                deadlines.append(self.last_heartbeat_ms + self.config.heartbeat_timeout_ms)
+            next_ms = min((d for d in deadlines if d > self.now_ms), default=target_ms)
+            self.now_ms = min(target_ms, next_ms)
+            before = (self.core.state, self.entered_ms)
+            self._resolve_deadline()
+            if (self.core.state, self.entered_ms) == before and self.now_ms < target_ms:
+                self.now_ms = target_ms
+        if milliseconds == 0:
+            self._resolve_deadline()
+        return self.core.state
+
+    def _resolve_deadline(self):
         state = self.core.state
         elapsed = self.now_ms - self.entered_ms
         if state == State.POWERING_ON:
