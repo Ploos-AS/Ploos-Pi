@@ -3,15 +3,20 @@ from dataclasses import dataclass, field
 from timed import TimedController
 from reference import State
 from fault_journal import FaultRecord, encode, latest_valid
+from storage import JournalStorage, MemoryStorage
 
 @dataclass
 class LoggedController(TimedController):
     slots: list[bytes] = field(default_factory=list)
     next_sequence: int = 1
+    storage: JournalStorage | None = None
+    journal_write_failures: int = 0
 
     def __post_init__(self):
         super().__post_init__()
-        last = latest_valid(self.slots)
+        if self.storage is None:
+            self.storage = MemoryStorage(self.slots)
+        last = latest_valid(self.storage.read_slots())
         if last is not None:
             self.next_sequence = last.sequence + 1
 
@@ -19,7 +24,11 @@ class LoggedController(TimedController):
         if self.next_sequence >= 2**64:
             raise OverflowError("fault sequence exhausted; rollover policy required")
         record = FaultRecord(self.next_sequence, self.now_ms, reason, prior_state.value)
-        self.slots.append(encode(record))
+        try:
+            self.storage.append(encode(record))
+        except OSError:
+            self.journal_write_failures += 1
+            return
         self.next_sequence += 1
 
     def command(self, event: str, *, authorized: bool = False, fault_clear: bool = False):
