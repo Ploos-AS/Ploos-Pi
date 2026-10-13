@@ -1,0 +1,20 @@
+name: Management C smoke test
+on:
+  push:
+    paths:
+      - "firmware/management/**"
+      - ".github/workflows/management-c.yml"
+  pull_request:
+    paths:
+      - "firmware/management/**"
+      - ".github/workflows/management-c.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  c11:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build and run smoke tests
+        run: make -C firmware/management test
