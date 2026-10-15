@@ -1,0 +1,26 @@
+name: Management Python C parity
+on:
+  push:
+    paths:
+      - "software/management/**"
+      - "firmware/management/**"
+      - "docs/engineering/m1-1-management-test-vectors.csv"
+      - ".github/workflows/management-parity.yml"
+  pull_request:
+    paths:
+      - "software/management/**"
+      - "firmware/management/**"
+      - "docs/engineering/m1-1-management-test-vectors.csv"
+      - ".github/workflows/management-parity.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run C smoke and vectors
+        run: make -C firmware/management test
+      - name: Run Python tests and cross-language parity
+        run: python3 -m unittest discover -s software/management -p 'test_*.py' -v
